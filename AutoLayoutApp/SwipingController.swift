@@ -8,33 +8,150 @@
 import UIKit
 
 class SwipingController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
-    
+    // MARK: - viewDidLoad
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+        addSubviews()
+        setupBottomControls()
+
         collectionView.backgroundColor = .white
         collectionView.register(PageCell.self, forCellWithReuseIdentifier: "cellId")
         collectionView.isPagingEnabled = true
     }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+
+    // MARK: - CollectionView stuff
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        minimumLineSpacingForSectionAt section: Int
+    )
+        -> CGFloat {
         return 0
     }
-    
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+
+    override func collectionView(
+        _ collectionView: UICollectionView,
+        numberOfItemsInSection section: Int
+    )
+        -> Int {
         return Pages.pages.count
     }
-    
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath) as! PageCell
-        
+
+    override func collectionView(
+        _ collectionView: UICollectionView,
+        cellForItemAt indexPath: IndexPath
+    )
+        -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: "cellId",
+            for: indexPath
+        ) as! PageCell
+
         let page = Pages.pages[indexPath.item]
         cell.page = page
-        
+
         return cell
     }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath
+    )
+        -> CGSize {
         return CGSize(width: view.frame.width, height: view.frame.height)
     }
+    
+    override func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        
+        let x = targetContentOffset.pointee.x
+        
+        pageControl.currentPage = Int(x / view.frame.width)
+    }
+
+    // MARK: - Observers
+
+    @objc
+    func handlePrevious() {
+        let nextIndex = max(pageControl.currentPage - 1, 0)
+        let indexPath = IndexPath(item: nextIndex, section: 0)
+        pageControl.currentPage = nextIndex
+        collectionView?.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+    }
+
+    @objc
+    func handleNext() {
+        let nextIndex = min(pageControl.currentPage + 1, Pages.pages.count - 1)
+        let indexPath = IndexPath(item: nextIndex, section: 0)
+        pageControl.currentPage = nextIndex
+        collectionView?.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+    }
+
+    // MARK: - Setting layout
+
+    fileprivate func setupBottomControls() {
+        NSLayoutConstraint.activate([
+            bottomControlsStackView.bottomAnchor
+                .constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            bottomControlsStackView.leadingAnchor
+                .constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            bottomControlsStackView.trailingAnchor
+                .constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            bottomControlsStackView.heightAnchor.constraint(equalToConstant: 50),
+            pageControl.widthAnchor.constraint(equalToConstant: view.frame.width / 2),
+            pageControl.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+        ])
+
+    }
+
+    fileprivate func addSubviews() {
+        view.addSubview(bottomControlsStackView)
+        bottomControlsStackView.addArrangedSubview(previousButton)
+        bottomControlsStackView.addArrangedSubview(pageControl)
+        bottomControlsStackView.addArrangedSubview(nextButton)
+    }
+
+    // MARK: - UI Elements
+
+    private let bottomControlsStackView: UIStackView = {
+        let bottomStackView = UIStackView()
+        bottomStackView.translatesAutoresizingMaskIntoConstraints = false
+        bottomStackView.distribution = .fillProportionally
+        return bottomStackView
+    }()
+
+    private lazy var pageControl: UIPageControl = {
+        let pc = UIPageControl()
+        pc.currentPage = 0
+        pc.numberOfPages = Pages.pages.count
+        pc.currentPageIndicatorTintColor = Colors.mainPink
+        pc.pageIndicatorTintColor = Colors.transperentPink
+        pc.translatesAutoresizingMaskIntoConstraints = false
+        return pc
+    }()
+
+    private let previousButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("PREV", for: .normal)
+        button.frame = CGRect(x: 0, y: 0, width: 200, height: 50)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
+        button.setTitleColor(.gray, for: .normal)
+        button.addTarget(self, action: #selector(handlePrevious), for: .touchUpInside)
+        return button
+    }()
+
+    private let nextButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("NEXT", for: .normal)
+        button.frame = CGRect(x: 0, y: 0, width: 200, height: 50)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
+        button.setTitleColor(Colors.mainPink, for: .normal)
+        button.addTarget(self, action: #selector(handleNext), for: .touchUpInside)
+        return button
+    }()
 }
