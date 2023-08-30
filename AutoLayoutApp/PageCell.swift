@@ -12,6 +12,7 @@ class PageCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        backgroundColor = .white
         addSubviews()
         setupLayout()
     }
@@ -61,7 +62,8 @@ class PageCell: UICollectionViewCell {
             bearImageView.centerXAnchor.constraint(equalTo: topImageContainerView.centerXAnchor),
             bearImageView.centerYAnchor.constraint(equalTo: topImageContainerView.centerYAnchor),
             bearImageView.heightAnchor.constraint(
-                equalTo: topImageContainerView.heightAnchor
+                equalTo: topImageContainerView.heightAnchor,
+                multiplier: 0.5
             ),
         ])
 
@@ -100,6 +102,7 @@ class PageCell: UICollectionViewCell {
 
     private let descriptionTextView: UITextView = {
         let textView = UITextView()
+        textView.backgroundColor = .white
 
         let attributedText = NSMutableAttributedString(
             string: "Join us today in out fun and games!",

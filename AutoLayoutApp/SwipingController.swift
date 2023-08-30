@@ -7,7 +7,13 @@
 
 import UIKit
 
+enum Colors {
+    static var mainPink = UIColor(named: "mainPink")
+    static var transperentPink = UIColor(named: "transparencyPink")
+}
+
 class SwipingController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+    
     // MARK: - viewDidLoad
 
     override func viewDidLoad() {
@@ -22,72 +28,12 @@ class SwipingController: UICollectionViewController, UICollectionViewDelegateFlo
     }
 
     // MARK: - CollectionView stuff
-
-    func collectionView(
-        _ collectionView: UICollectionView,
-        layout collectionViewLayout: UICollectionViewLayout,
-        minimumLineSpacingForSectionAt section: Int
-    )
-        -> CGFloat {
-        return 0
-    }
-
-    override func collectionView(
-        _ collectionView: UICollectionView,
-        numberOfItemsInSection section: Int
-    )
-        -> Int {
-        return Pages.pages.count
-    }
-
-    override func collectionView(
-        _ collectionView: UICollectionView,
-        cellForItemAt indexPath: IndexPath
-    )
-        -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: "cellId",
-            for: indexPath
-        ) as! PageCell
-
-        let page = Pages.pages[indexPath.item]
-        cell.page = page
-
-        return cell
-    }
-
-    func collectionView(
-        _ collectionView: UICollectionView,
-        layout collectionViewLayout: UICollectionViewLayout,
-        sizeForItemAt indexPath: IndexPath
-    )
-        -> CGSize {
-        return CGSize(width: view.frame.width, height: view.frame.height)
-    }
     
     override func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         
         let x = targetContentOffset.pointee.x
         
         pageControl.currentPage = Int(x / view.frame.width)
-    }
-
-    // MARK: - Observers
-
-    @objc
-    func handlePrevious() {
-        let nextIndex = max(pageControl.currentPage - 1, 0)
-        let indexPath = IndexPath(item: nextIndex, section: 0)
-        pageControl.currentPage = nextIndex
-        collectionView?.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-    }
-
-    @objc
-    func handleNext() {
-        let nextIndex = min(pageControl.currentPage + 1, Pages.pages.count - 1)
-        let indexPath = IndexPath(item: nextIndex, section: 0)
-        pageControl.currentPage = nextIndex
-        collectionView?.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
     }
 
     // MARK: - Setting layout
@@ -123,7 +69,7 @@ class SwipingController: UICollectionViewController, UICollectionViewDelegateFlo
         return bottomStackView
     }()
 
-    private lazy var pageControl: UIPageControl = {
+    lazy var pageControl: UIPageControl = {
         let pc = UIPageControl()
         pc.currentPage = 0
         pc.numberOfPages = Pages.pages.count
@@ -154,4 +100,22 @@ class SwipingController: UICollectionViewController, UICollectionViewDelegateFlo
         button.addTarget(self, action: #selector(handleNext), for: .touchUpInside)
         return button
     }()
+    
+    // MARK: - Observers
+
+    @objc
+    func handlePrevious() {
+        let nextIndex = max(pageControl.currentPage - 1, 0)
+        let indexPath = IndexPath(item: nextIndex, section: 0)
+        pageControl.currentPage = nextIndex
+        collectionView?.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+    }
+
+    @objc
+    func handleNext() {
+        let nextIndex = min(pageControl.currentPage + 1, Pages.pages.count - 1)
+        let indexPath = IndexPath(item: nextIndex, section: 0)
+        pageControl.currentPage = nextIndex
+        collectionView?.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+    }
 }
