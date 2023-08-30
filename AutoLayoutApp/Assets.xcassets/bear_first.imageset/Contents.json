@@ -1,17 +1,15 @@
 {
   "images" : [
     {
-      "filename" : "unnamed.png",
+      "filename" : "bear_first.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "unnamed@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "unnamed@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

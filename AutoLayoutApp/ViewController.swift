@@ -34,9 +34,9 @@ class ViewController: UIViewController {
         ])
 
         NSLayoutConstraint.activate([
-            avitoImageView.centerXAnchor.constraint(equalTo: topImageContainerView.centerXAnchor),
-            avitoImageView.centerYAnchor.constraint(equalTo: topImageContainerView.centerYAnchor),
-            avitoImageView.heightAnchor.constraint(
+            bearImageView.centerXAnchor.constraint(equalTo: topImageContainerView.centerXAnchor),
+            bearImageView.centerYAnchor.constraint(equalTo: topImageContainerView.centerYAnchor),
+            bearImageView.heightAnchor.constraint(
                 equalTo: topImageContainerView.heightAnchor
             ),
         ])
@@ -72,7 +72,7 @@ class ViewController: UIViewController {
         view.addSubview(descriptionTextView)
         view.addSubview(topImageContainerView)
         view.addSubview(bottomControlsStackView)
-        topImageContainerView.addSubview(avitoImageView)
+        topImageContainerView.addSubview(bearImageView)
     }
 
     // MARK: - UI Elements
@@ -83,8 +83,8 @@ class ViewController: UIViewController {
         return imageContainerView
     }()
 
-    private let avitoImageView: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "avito"))
+    private let bearImageView: UIImageView = {
+        let imageView = UIImageView(image: UIImage(named: "bear_first"))
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
         return imageView

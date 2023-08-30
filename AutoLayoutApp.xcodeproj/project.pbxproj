@@ -13,6 +13,8 @@
 		A53C0BDF2A9CEBF800777B07 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A53C0BDD2A9CEBF800777B07 /* Main.storyboard */; };
 		A53C0BE12A9CEBFB00777B07 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A53C0BE02A9CEBFB00777B07 /* Assets.xcassets */; };
 		A53C0BE42A9CEBFB00777B07 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A53C0BE22A9CEBFB00777B07 /* LaunchScreen.storyboard */; };
+		A5C247312A9F2BA7003426CA /* SwipingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C247302A9F2BA7003426CA /* SwipingController.swift */; };
+		A5C247332A9F322C003426CA /* PageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C247322A9F322C003426CA /* PageCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		A53C0BE02A9CEBFB00777B07 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A53C0BE32A9CEBFB00777B07 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A53C0BE52A9CEBFB00777B07 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A5C247302A9F2BA7003426CA /* SwipingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipingController.swift; sourceTree = "<group>"; };
+		A5C247322A9F322C003426CA /* PageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +67,8 @@
 				A53C0BE02A9CEBFB00777B07 /* Assets.xcassets */,
 				A53C0BE22A9CEBFB00777B07 /* LaunchScreen.storyboard */,
 				A53C0BE52A9CEBFB00777B07 /* Info.plist */,
+				A5C247302A9F2BA7003426CA /* SwipingController.swift */,
+				A5C247322A9F322C003426CA /* PageCell.swift */,
 			);
 			path = AutoLayoutApp;
 			sourceTree = "<group>";
@@ -139,8 +145,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				A53C0BDC2A9CEBF800777B07 /* ViewController.swift in Sources */,
+				A5C247332A9F322C003426CA /* PageCell.swift in Sources */,
 				A53C0BD82A9CEBF800777B07 /* AppDelegate.swift in Sources */,
 				A53C0BDA2A9CEBF800777B07 /* SceneDelegate.swift in Sources */,
+				A5C247312A9F2BA7003426CA /* SwipingController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
