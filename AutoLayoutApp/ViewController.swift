@@ -12,6 +12,26 @@ enum Colors {
     static var transperentPink = UIColor(named: "transparencyPink")
 }
 
+enum Pages {
+    static let pages = [
+        Page(
+            imageName: "bear_first",
+            headerText: "Join us today in out fun and games!",
+            bodyText: "Are you ready for loads and loads of fun? Don't wait any longer! We hope to see you in our stores soon."
+        ),
+        Page(
+            imageName: "heart_second",
+            headerText: "Subscribe and get coupons on out daily events",
+            bodyText: "Get notified of the savings immediately when we announce them on our website. Make sure to also give us any feedback you have."
+        ),
+        Page(
+            imageName: "leaf_third",
+            headerText: "VIP members special services",
+            bodyText: ""
+        ),
+    ]
+}
+
 class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -92,19 +112,6 @@ class ViewController: UIViewController {
 
     private let descriptionTextView: UITextView = {
         let textView = UITextView()
-
-        let attributedText = NSMutableAttributedString(
-            string: "Join us today in out fun and games!",
-            attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 18)]
-        )
-        attributedText.append(NSAttributedString(
-            string: "\n\n\nAre you ready for loads and loads of fun? Don't wait any longer! We hope to see you in out stores soon.",
-            attributes: [
-                NSAttributedString.Key.font: UIFont.systemFont(ofSize: 13),
-                NSAttributedString.Key.foregroundColor: UIColor.gray,
-            ]
-        ))
-        textView.attributedText = attributedText
 
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.textAlignment = .center
